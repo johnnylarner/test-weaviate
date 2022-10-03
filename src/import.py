@@ -29,16 +29,20 @@ def capitalize_and_singularize(word: str) -> str:
     return word.capitalize()
 
 
+# Each key in the `data` is class name from the schema in plural form.
 for cls in data:
     print("Importing data for class: ", cls)
+    # Reformat key and check it's in the schema we have defined.
     class_in_schema = capitalize_and_singularize(cls)
     if class_in_schema not in existing_classes:
         raise ImportNotSchematizedClassException(
             f"Class `{class_in_schema}` not in schema: {existing_classes}"
         )
 
+    # Now retrieve the list of data objects
     data_objects_per_class = data[cls]
     for data_obj in data_objects_per_class:
+        # Unpack the object, special fields `id` and `vector`.
         props = {k: v for k, v in data_obj.items() if k not in {"id", "vector"}}
         print("Importing data object: \n", props)
         client.batch.add_data_object(
