@@ -1,9 +1,3 @@
-from config import Config
-import json
-
-config = Config()
-client = config.get_client()
-
 # We will create the class "Author" and the properties
 # from the basics section of this guide
 schema = [

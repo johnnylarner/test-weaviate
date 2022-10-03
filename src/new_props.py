@@ -1,4 +1,4 @@
-from typing import Dict, List, TypedDict
+from typing import Dict, List
 
 
 props: List[Dict] = [
