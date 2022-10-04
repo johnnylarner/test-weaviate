@@ -9,5 +9,5 @@ props: List[Dict] = [
             "name": "writesFor",
         },
     },
-    {"class": "Author", "properties": {"dataType": ["Author"], "name": "has"}},
+    {"class": "Publication", "properties": {"dataType": ["Author"], "name": "has"}},
 ]

@@ -9,12 +9,10 @@ existing_classes = set()
 for cls in schema["classes"]:
     existing_classes.add(cls["class"])
 
-with open("tmp/data.json") as f:
+with open("../tmp/data.json") as f:
     data: dict = json.load(f)
 
-client.batch.configure(
-    batch_size=len(list(data.keys())), dynamic=True, timeout_retries=3, callback=None
-)
+client.batch.configure(batch_size=100, dynamic=True, timeout_retries=3, callback=None)
 
 
 class ImportNotSchematizedClassException(Exception):
@@ -31,9 +29,9 @@ def capitalize_and_singularize(word: str) -> str:
 
 # Each key in the `data` is class name from the schema in plural form.
 for cls in data:
-    print("Importing data for class: ", cls)
     # Reformat key and check it's in the schema we have defined.
     class_in_schema = capitalize_and_singularize(cls)
+    print("Importing data for class: ", class_in_schema.strip())
     if class_in_schema not in existing_classes:
         raise ImportNotSchematizedClassException(
             f"Class `{class_in_schema}` not in schema: {existing_classes}"
@@ -45,11 +43,10 @@ for cls in data:
         # Unpack the object, special fields `id` and `vector`.
         props = {k: v for k, v in data_obj.items() if k not in {"id", "vector"}}
         print("Importing data object: \n", props)
-        client.batch.add_data_object(
+        response = client.batch.add_data_object(
             props,
             class_in_schema,
             data_obj["id"],
             data_obj["vector"],
         )
-
-client.batch.flush()
+    client.batch.flush()

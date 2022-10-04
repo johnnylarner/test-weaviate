@@ -7,6 +7,7 @@
             "born": "1931-07-10T00:00:00.0Z",
             "wonNobelPrize": true,
             "description": "Alice Ann Munro is a Canadian short story writer who won the Nobel Prize in Literature in 2013. Munro's work has been described as revolutionizing the architecture of short stories, especially in its tendency to move forward and backward in time.",
+            "writesFor": "Vogue",
             "vector": [
                 -0.16147631,
                 -0.065765485,
@@ -94,6 +95,7 @@
         {
             "name": "Vogue",
             "id": "ac884d35-ccb4-3937-81f8-8474a4d7a549",
+            "has": "Alice Munroe",
             "vector": [
                 0.03527758,
                 -0.0150233405,
